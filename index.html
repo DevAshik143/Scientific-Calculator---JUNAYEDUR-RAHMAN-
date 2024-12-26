@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <!-- Font -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00bcd4, #4caf50);
+            margin: 0;
+            color: #fff;
+        }
+
+        .top-bar {
+            background: #0080DA;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-bar .contact-info {
+            font-size: 0.9rem;
+        }
+
+        .top-bar .social-links {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .top-bar .social-links a {
+            color: #82e0aa;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .top-bar .social-links a:hover {
+            color: #a3e4d7;
+        }
+
+        .calculator-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .calculator {
+            background: #1e2a3d;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            width: 90%;
+            max-width: 450px;
+        }
+
+        .display {
+            width: 97%;
+            height: 60px;
+            background: #101522;
+            border: none;
+            margin-bottom: 10px;
+            text-align: right;
+            padding: 15px;
+            font-size: 1.6rem;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .result {
+            width: 100%;
+            height: 50px;
+            background: #101522;
+            border: none;
+            margin-bottom: 20px;
+            text-align: right;
+            padding: 10px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            color: #76e6b2;
+            overflow: hidden;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Buttons are in a 4-column grid */
+            gap: 15px;
+        }
+
+        button {
+            height: 60px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            background: #3a4e72;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #4f6a92;
+            transform: translateY(-3px);
+        }
+
+        button.clear {
+            background: #0080DA;
+        }
+
+        button.clear:hover {
+            background: #3FB167;
+        }
+
+        button.function {
+            background: #34495e;
+        }
+
+        button.function:hover {
+            background: #2c3e50;
+        }
+
+        button.equal {
+            background: #0080DA;
+            grid-column: span 4; /* Make the "=" button span 4 columns (full width) */
+            
+            align-items: rights;
+        }
+
+        button.equal:hover {
+            background: #3FB167;
+        }
+
+        .footer {
+            background: #3FB167;
+            padding: 10px 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .display {
+                font-size: 1.4rem;
+                height: 55px;
+            }
+
+            .result {
+                font-size: 1rem;
+                height: 45px;
+            }
+
+            button {
+                height: 50px;
+                font-size: 1rem;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .top-bar .contact-info {
+                margin-bottom: 10px;
+            }
+
+            .top-bar .social-links {
+                justify-content: center; /* Center the icons on small screens */
+                gap: 12px;
+                margin-top: 10px;
+            }
+
+            .social-links a {
+                font-size: 1.5rem; /* Adjust icon size for better visibility */
+            }
+
+            .calculator-wrapper {
+                margin-top: 20px; /* Adds space above the calculator */
+            }
+
+            /* Adjusting the calculator layout */
+            .calculator {
+                width: 95%;
+                max-width: 400px;
+                padding: 15px;
+            }
+
+            .buttons {
+                gap: 10px; /* Reducing space between buttons */
+            }
+
+            .buttons button {
+                font-size: 1.1rem;
+                height: 55px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="contact-info">
+            <span><i class="fa-solid fa-phone"></i> +880 2761-482306 <!-- | <i class="fa-solid fa-envelope"></i> hellojunayed.bd@gmail.com</span> -->
+        </div>
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/1Agz3oufY6/" target="_blank" class="social-icon facebook"><i style="color: white;" class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.instagram.com/jt_junayed/" target="_blank" class="social-icon instagram"><i class="fa-brands fa-square-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/ashikur-rahman-270766294/" target="_blank" class="social-icon linkedin"><i style="color: white;" class="fa-brands fa-linkedin"></i></a>
+            <a href="https://x.com/Junayed1259" target="_blank" class="social-icon twitter"><i class="fa-brands fa-square-x-twitter"></i></a>
+            <a href="https://shorturl.at/O01YY" target="_blank" class="social-icon threads"><i class="fa-brands fa-square-threads"></i></a>
+            <a href="https://pin.it/1ogqWR8Iz" target="_blank" class="social-icon pinterest"><i class="fa-brands fa-square-pinterest"></i></a>
+        </div>
+    </div>
+
+    <div class="calculator-wrapper">
+        <div class="calculator">
+            <input type="text" class="display" id="display" oninput="validateAndCalculate()" placeholder="JUNAYED CALCULATION...">
+            <input type="text" class="result" id="result" disabled placeholder="Result...">
+            <div class="buttons">
+                <button onclick="appendNumber('7')">7</button>
+                <button onclick="appendNumber('8')">8</button>
+                <button onclick="appendNumber('9')">9</button>
+                <button class="function" onclick="appendOperator('/')">÷</button>
+
+                <button onclick="appendNumber('4')">4</button>
+                <button onclick="appendNumber('5')">5</button>
+                <button onclick="appendNumber('6')">6</button>
+                <button class="function" onclick="appendOperator('*')">×</button>
+
+                <button onclick="appendNumber('1')">1</button>
+                <button onclick="appendNumber('2')">2</button>
+                <button onclick="appendNumber('3')">3</button>
+                <button class="function" onclick="appendOperator('-')">−</button>
+
+                <button onclick="appendNumber('0')">0</button>
+                <button onclick="appendNumber('.')">.</button>
+                <button class="clear" onclick="clearDisplay()">AC</button>
+                <button class="function" onclick="appendOperator('+')">+</button>
+
+                <button onclick="backspace()">←</button> <!-- Back button to remove the last input -->
+                <button class="function" onclick="appendOperator('%')">%</button>
+                <button class="function" onclick="calculateSquareRoot()">√</button>
+                <button class="function" onclick="calculatePower()">x²</button>
+                <button class="equal" onclick="showFinalResult()">=</button> <!-- Moved '=' button up here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 | Developed by Junayedur Rahman</p>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        const result = document.getElementById('result');
+
+        function appendNumber(number) {
+            display.value += number;
+            validateAndCalculate();
+        }
+
+        function appendOperator(operator) {
+            if (display.value === '') return;
+            const lastChar = display.value.slice(-1);
+            if ('+-*/%'.includes(lastChar)) {
+                display.value = display.value.slice(0, -1) + operator;
+            } else {
+                display.value += operator;
+            }
+            validateAndCalculate();
+        }
+
+        function clearDisplay() {
+            display.value = '';
+            result.value = '';
+        }
+
+        function calculateSquareRoot() {
+            try {
+                display.value = Math.sqrt(eval(display.value));
+                result.value = display.value;
+            } catch {
+                result.value = 'Error';
+            }
+        }
+
+        function calculatePower() {
+            try {
+                display.value = Math.pow(eval(display.value), 2);
+                result.value = display.value;
+            } catch {
+                result.value = 'Error';
+            }
+        }
+
+        function validateAndCalculate() {
+            try {
+                if (display.value.trim() === '') {
+                    result.value = '';
+                    return;
+                }
+                const calculation = eval(display.value);
+                result.value = calculation;
+            } catch {
+                result.value = 'Invalid Input';
+            }
+        }
+
+        function showFinalResult() {
+            try {
+                const calculation = eval(display.value);
+                display.value = calculation;
+                result.value = calculation;
+            } catch {
+                display.value = 'Error';
+                result.value = 'Error';
+            }
+        }
+
+        // Backspace function to delete the last character
+        function backspace() {
+            display.value = display.value.slice(0, -1);
+            validateAndCalculate();
+        }
+    </script>
+</body>
+</html>
